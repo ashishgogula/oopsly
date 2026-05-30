@@ -35,6 +35,66 @@ export const PAGE_TYPES = [
   { id: "offline", label: "Offline", desc: "No Connection" },
 ];
 
+export type PageTemplate = {
+  title: string;
+  message: string;
+  emoji: string;
+  bgColor: string;
+  buttonText: string;
+  animationType: string;
+};
+
+export const PAGE_TYPE_TEMPLATES: Record<string, PageTemplate> = {
+  "404": {
+    title: "You've Found a Secret Place!",
+    message: "This page doesn't exist, but at least you found this cool unicorn 🦄",
+    emoji: "🦄",
+    bgColor: "bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100",
+    buttonText: "Back to Reality",
+    animationType: "float",
+  },
+  "500": {
+    title: "Something Went Wrong",
+    message: "Our servers hit a snag. We're on it — please try again in a moment.",
+    emoji: "🔥",
+    bgColor: "bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50",
+    buttonText: "Try Again",
+    animationType: "shake",
+  },
+  "503": {
+    title: "We'll Be Back Soon",
+    message: "We're doing some maintenance. Grab a coffee — this won't take long ☕",
+    emoji: "🚧",
+    bgColor: "bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50",
+    buttonText: "Check Status",
+    animationType: "pulse",
+  },
+  "401": {
+    title: "Access Denied",
+    message: "You need to be logged in to view this page. Don't worry, it happens.",
+    emoji: "🔒",
+    bgColor: "bg-gradient-to-br from-slate-100 via-gray-100 to-zinc-100",
+    buttonText: "Sign In",
+    animationType: "wobble",
+  },
+  "coming-soon": {
+    title: "Something Exciting is Coming",
+    message: "We're building something great. Stay tuned and be the first to know!",
+    emoji: "🚀",
+    bgColor: "bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100",
+    buttonText: "Notify Me",
+    animationType: "bounce",
+  },
+  "offline": {
+    title: "You're Offline",
+    message: "It looks like you've lost your internet connection. Check your network and try again.",
+    emoji: "📡",
+    bgColor: "bg-gradient-to-br from-gray-100 via-slate-100 to-blue-50",
+    buttonText: "Retry",
+    animationType: "wobble",
+  },
+};
+
 interface BuilderSidebarProps {
   title: string;
   setTitle: (v: string) => void;
@@ -54,6 +114,7 @@ interface BuilderSidebarProps {
   fontFamily: string;
   setFontFamily: (v: string) => void;
   onCommitHistory: () => void;
+  onApplyTemplate: (t: PageTemplate) => void;
   onUndo: () => void;
   onRedo: () => void;
   canUndo: boolean;
@@ -107,6 +168,7 @@ export default function BuilderSidebar({
   fontFamily,
   setFontFamily,
   onCommitHistory,
+  onApplyTemplate,
   onUndo,
   onRedo,
   canUndo,
@@ -163,7 +225,11 @@ export default function BuilderSidebar({
           {PAGE_TYPES.map((pt) => (
             <button
               key={pt.id}
-              onClick={() => setPageType(pt.id)}
+              onClick={() => {
+                setPageType(pt.id);
+                const tpl = PAGE_TYPE_TEMPLATES[pt.id];
+                if (tpl) onApplyTemplate(tpl);
+              }}
               className={`flex flex-col items-center py-2 px-1 rounded-lg border text-center transition-all duration-150 active:scale-95 ${
                 pageType === pt.id
                   ? "border-black bg-black text-white"

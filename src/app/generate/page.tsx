@@ -205,6 +205,15 @@ export default function GeneratePage() {
               setAnimationType={(v) => { setAnimationType(v); pushHistory({ ...getSnapshot(), animationType: v }); }}
               fontFamily={fontFamily}
               setFontFamily={(v) => { setFontFamily(v); pushHistory({ ...getSnapshot(), fontFamily: v }); }}
+              onApplyTemplate={(tpl) => {
+                setTitle(tpl.title);
+                setMessage(tpl.message);
+                setEmoji(tpl.emoji);
+                setBgColor(tpl.bgColor);
+                setButtonText(tpl.buttonText);
+                setAnimationType(tpl.animationType);
+                pushHistory({ ...getSnapshot(), title: tpl.title, message: tpl.message, emoji: tpl.emoji, bgColor: tpl.bgColor, buttonText: tpl.buttonText, animationType: tpl.animationType });
+              }}
               onCommitHistory={() => pushHistory(getSnapshot())}
               onUndo={undo}
               onRedo={redo}
