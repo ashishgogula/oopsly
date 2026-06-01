@@ -6,8 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "preinstall": "npm config set legacy-peer-deps true"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@emoji-mart/data": "^1.2.1",
