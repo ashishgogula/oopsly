@@ -12,8 +12,6 @@ interface ExportPanelProps {
   buttonText: string;
 }
 
-type ExportTab = 'react' | 'middleware' | 'json';
-
 export default function ExportPanel({
   title,
   message,
@@ -23,11 +21,9 @@ export default function ExportPanel({
   showButton,
   buttonText,
 }: ExportPanelProps) {
-  const [activeTab, setActiveTab] = useState<ExportTab>('react');
+  const [jsxBlockCode, setJsxBlockCode] = useState("");
   const [jsxComponentCode, setJsxComponentCode] = useState("");
-  const [middlewareCode, setMiddlewareCode] = useState("");
-  const [jsonCode, setJsonCode] = useState("");
-  const [copied, setCopied] = useState<boolean>(false);
+  const [copied, setCopied] = useState<null | 'block' | 'component'>(null);
 
   useEffect(() => {
     const isCustomColor = background.startsWith("#");
@@ -56,61 +52,15 @@ export default function NotFoundPage() {
 }
     `.trim();
 
-    const edgeMiddleware = `
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
-export function middleware(request: NextRequest) {
-  // Edge-native analytics tracking for broken links
-  if (request.nextUrl.pathname.startsWith('/')) {
-    console.log('[Oopsly Edge Analytics] Broken link hit:', request.nextUrl.pathname);
-    // You can forward this data to ClickHouse, Mixpanel, etc.
-  }
-  return NextResponse.next();
-}
-
-export const config = {
-  matcher: '/:path*',
-};
-    `.trim();
-
-    const astJson = JSON.stringify({
-      schemaVersion: "1.0.0",
-      page: {
-        title,
-        message,
-        emoji: {
-          icon: emoji,
-          animation: animate ? "bounce" : "none"
-        },
-        styles: {
-          background
-        },
-        actions: showButton ? [
-          {
-            type: "link",
-            href: "/",
-            label: buttonText,
-            style: "primary"
-          }
-        ] : []
-      }
-    }, null, 2);
-
+    setJsxBlockCode(blockCode);
     setJsxComponentCode(componentCode);
-    setMiddlewareCode(edgeMiddleware);
-    setJsonCode(astJson);
   }, [title, message, emoji, animate, background, showButton, buttonText]);
 
-  const handleCopy = () => {
-    let codeToCopy = "";
-    if (activeTab === 'react') codeToCopy = jsxComponentCode;
-    if (activeTab === 'middleware') codeToCopy = middlewareCode;
-    if (activeTab === 'json') codeToCopy = jsonCode;
-
+  const handleCopy = (type: 'block' | 'component') => {
+    const codeToCopy = type === 'block' ? jsxBlockCode : jsxComponentCode;
     navigator.clipboard.writeText(codeToCopy).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setCopied(type);
+      setTimeout(() => setCopied(null), 2000);
     });
   };
 
@@ -131,47 +81,27 @@ export const config = {
 
   return (
     <motion.div
-      className="mt-6 border-t pt-4 px-4 pb-6"
+      className="mt-6 border-t pt-4 px-4"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      <motion.div variants={itemVariants} className="flex justify-between items-center mb-3">
-        <p className="text-sm font-semibold text-gray-800">Production Export</p>
-      </motion.div>
-      
-      <motion.div variants={itemVariants} className="flex space-x-2 mb-3 bg-gray-100 p-1 rounded-lg">
+      <motion.p variants={itemVariants} className="text-sm font-semibold text-gray-800 mb-2">Export Code</motion.p>
+      <motion.pre variants={itemVariants} className="bg-gray-100 rounded-md p-3 text-xs overflow-x-auto whitespace-pre-wrap">
+        {jsxComponentCode}
+      </motion.pre>
+      <motion.div variants={itemVariants} className="flex justify-end items-center mt-4 gap-3">
         <button
-          onClick={() => setActiveTab('react')}
-          className={`flex-1 text-xs py-1.5 rounded-md transition-colors ${activeTab === 'react' ? 'bg-white shadow-sm font-medium text-black' : 'text-gray-500 hover:text-black'}`}
+          onClick={() => handleCopy('block')}
+          className="text-sm px-4 py-2 rounded-lg border hover:bg-gray-50 transition-colors"
         >
-          React
+          {copied === 'block' ? "Copied!" : "Copy Code"}
         </button>
         <button
-          onClick={() => setActiveTab('middleware')}
-          className={`flex-1 text-xs py-1.5 rounded-md transition-colors ${activeTab === 'middleware' ? 'bg-white shadow-sm font-medium text-black' : 'text-gray-500 hover:text-black'}`}
+          onClick={() => handleCopy('component')}
+          className="text-sm px-4 py-2 rounded-lg bg-black text-white hover:bg-gray-800 transition-colors"
         >
-          Next.js Edge
-        </button>
-        <button
-          onClick={() => setActiveTab('json')}
-          className={`flex-1 text-xs py-1.5 rounded-md transition-colors ${activeTab === 'json' ? 'bg-white shadow-sm font-medium text-black' : 'text-gray-500 hover:text-black'}`}
-        >
-          JSON AST
-        </button>
-      </motion.div>
-
-      <motion.div variants={itemVariants} className="relative group">
-        <pre className="bg-gray-900 text-gray-100 rounded-md p-4 text-xs overflow-x-auto whitespace-pre-wrap max-h-64">
-          {activeTab === 'react' && jsxComponentCode}
-          {activeTab === 'middleware' && middlewareCode}
-          {activeTab === 'json' && jsonCode}
-        </pre>
-        <button
-          onClick={handleCopy}
-          className="absolute top-2 right-2 bg-white/10 hover:bg-white/20 text-white text-xs px-3 py-1.5 rounded-md transition-colors backdrop-blur-sm"
-        >
-          {copied ? "Copied!" : "Copy"}
+          {copied === 'component' ? "Copied!" : "Copy Component"}
         </button>
       </motion.div>
     </motion.div>
