@@ -1,0 +1,142 @@
+[
+  {
+    "id": "unicorn",
+    "name": "Unicorn Magic",
+    "title": "You've Found a Secret Place!",
+    "message": "This page doesn't exist, but at least you found this cool unicorn 🦄",
+    "emoji": "🦄",
+    "background": "bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100",
+    "showButton": true,
+    "buttonText": "Back to Reality"
+  },
+  {
+    "id": "robot",
+    "name": "Lost Robot",
+    "title": "Beep Boop! Page Not Found.",
+    "message": "The robots searched everywhere but couldn’t find this page.",
+    "emoji": "🤖",
+    "background": "bg-gray-100",
+    "showButton": true,
+    "buttonText": "Return to Base"
+  },
+  {
+    "id": "ghost",
+    "name": "Spooky Ghost",
+    "title": "Boo! This Page is Gone.",
+    "message": "You’ve reached a ghost page — it vanished into thin air.",
+    "emoji": "👻",
+    "background": "bg-white",
+    "showButton": true,
+    "buttonText": "Escape"
+  },
+  {
+    "id": "coffee",
+    "name": "Coffee Break",
+    "title": "404 — Coffee Time!",
+    "message": "The page took a coffee break. Try again later.",
+    "emoji": "☕",
+    "background": "bg-yellow-100",
+    "showButton": true,
+    "buttonText": "Try Again"
+  },
+  {
+    "id": "sleeping",
+    "name": "Sleep Mode",
+    "title": "This Page is Asleep.",
+    "message": "We couldn’t wake it up in time.",
+    "emoji": "😴",
+    "background": "bg-blue-100",
+    "showButton": true,
+    "buttonText": "Back to Home"
+  },
+  {
+    "id": "construction",
+    "name": "Under Construction",
+    "title": "Page Under Construction",
+    "message": "We’re working on it. Thanks for your patience!",
+    "emoji": "🚧",
+    "background": "bg-orange-100",
+    "showButton": true,
+    "buttonText": "Go Back"
+  },
+  {
+    "id": "alien",
+    "name": "Alien Zone",
+    "title": "Whoa! Wrong Planet.",
+    "message": "You’ve landed somewhere unknown. Not found here!",
+    "emoji": "👽",
+    "background": "bg-green-100",
+    "showButton": true,
+    "buttonText": "Beam Me Back"
+  },
+  {
+    "id": "detective",
+    "name": "Missing Page Mystery",
+    "title": "Clues Point to Nowhere.",
+    "message": "Our best detectives couldn’t find this page.",
+    "emoji": "🕵️‍♂️",
+    "background": "bg-indigo-100",
+    "showButton": true,
+    "buttonText": "Start Over"
+  },
+  {
+    "id": "wave",
+    "name": "Lost at Sea",
+    "title": "Page Overboard!",
+    "message": "It drifted off somewhere. We’ll keep looking!",
+    "emoji": "🌊",
+    "background": "bg-teal-100",
+    "showButton": true,
+    "buttonText": "Swim Back"
+  },
+  {
+    "id": "toast",
+    "name": "Burnt Toast",
+    "title": "Oops, Page Got Toasted!",
+    "message": "This one’s burnt. Not much to see here.",
+    "emoji": "🍞",
+    "background": "bg-pink-100",
+    "showButton": true,
+    "buttonText": "Go Back"
+  },
+  {
+    "id": "clean-white",
+    "name": "Clean White",
+    "title": "This Page Doesn’t Exist",
+    "message": "You may have mistyped the address or followed a broken link.",
+    "emoji": "❓",
+    "background": "bg-white text-gray-800",
+    "showButton": true,
+    "buttonText": "Back to Homepage"
+  },
+  {
+    "id": "tech-gray",
+    "name": "Tech Gray",
+    "title": "Error 404",
+    "message": "The requested page was not found on this server.",
+    "emoji": "🧭",
+    "background": "bg-gray-100",
+    "showButton": true,
+    "buttonText": "Return Home"
+  },
+  {
+    "id": "gradient-blue",
+    "name": "Gradient Blue",
+    "title": "Oops! Page Not Found",
+    "message": "We couldn't find what you're looking for.",
+    "emoji": "🔍",
+    "background": "bg-gradient-to-br from-blue-100 to-blue-200",
+    "showButton": true,
+    "buttonText": "Home"
+  },
+  {
+    "id": "corporate",
+    "name": "Corporate Classic",
+    "title": "404 Error — Page Not Found",
+    "message": "It looks like the page you’re looking for has been moved or no longer exists.",
+    "emoji": "📄",
+    "background": "bg-slate-50",
+    "showButton": true,
+    "buttonText": "Go Back"
+  }
+]
